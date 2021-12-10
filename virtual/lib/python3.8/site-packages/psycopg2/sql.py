@@ -4,7 +4,7 @@
 # psycopg/sql.py - SQL composition utility module
 #
 # Copyright (C) 2016-2019 Daniele Varrazzo  <daniele.varrazzo@gmail.com>
-# Copyright (C) 2020-2021 The Psycopg Team
+# Copyright (C) 2020 The Psycopg Team
 #
 # psycopg2 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -27,12 +27,13 @@
 import string
 
 from psycopg2 import extensions as ext
+from psycopg2.compat import PY3, string_types
 
 
 _formatter = string.Formatter()
 
 
-class Composable:
+class Composable(object):
     """
     Abstract base class for objects that can be used to compose an SQL string.
 
@@ -50,7 +51,7 @@ class Composable:
         self._wrapped = wrapped
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self._wrapped!r})"
+        return "%s(%r)" % (self.__class__.__name__, self._wrapped)
 
     def as_string(self, context):
         """
@@ -106,10 +107,10 @@ class Composed(Composable):
         for i in seq:
             if not isinstance(i, Composable):
                 raise TypeError(
-                    f"Composed elements must be Composable, got {i!r} instead")
+                    "Composed elements must be Composable, got %r instead" % i)
             wrapped.append(i)
 
-        super().__init__(wrapped)
+        super(Composed, self).__init__(wrapped)
 
     @property
     def seq(self):
@@ -147,7 +148,7 @@ class Composed(Composable):
             "foo", "bar"
 
         """
-        if isinstance(joiner, str):
+        if isinstance(joiner, string_types):
             joiner = SQL(joiner)
         elif not isinstance(joiner, SQL):
             raise TypeError(
@@ -179,9 +180,9 @@ class SQL(Composable):
         select "foo", "bar" from "table"
     """
     def __init__(self, string):
-        if not isinstance(string, str):
+        if not isinstance(string, string_types):
             raise TypeError("SQL values must be strings")
-        super().__init__(string)
+        super(SQL, self).__init__(string)
 
     @property
     def string(self):
@@ -323,10 +324,10 @@ class Identifier(Composable):
             raise TypeError("Identifier cannot be empty")
 
         for s in strings:
-            if not isinstance(s, str):
+            if not isinstance(s, string_types):
                 raise TypeError("SQL identifier parts must be strings")
 
-        super().__init__(strings)
+        super(Identifier, self).__init__(strings)
 
     @property
     def strings(self):
@@ -344,7 +345,9 @@ class Identifier(Composable):
                 "the Identifier wraps more than one than one string")
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({', '.join(map(repr, self._wrapped))})"
+        return "%s(%s)" % (
+            self.__class__.__name__,
+            ', '.join(map(repr, self._wrapped)))
 
     def as_string(self, context):
         return '.'.join(ext.quote_ident(s, context) for s in self._wrapped)
@@ -389,7 +392,7 @@ class Literal(Composable):
             a.prepare(conn)
 
         rv = a.getquoted()
-        if isinstance(rv, bytes):
+        if PY3 and isinstance(rv, bytes):
             rv = rv.decode(ext.encodings[conn.encoding])
 
         return rv
@@ -423,14 +426,14 @@ class Placeholder(Composable):
     """
 
     def __init__(self, name=None):
-        if isinstance(name, str):
+        if isinstance(name, string_types):
             if ')' in name:
-                raise ValueError(f"invalid name: {name!r}")
+                raise ValueError("invalid name: %r" % name)
 
         elif name is not None:
-            raise TypeError(f"expected string or None as name, got {name!r}")
+            raise TypeError("expected string or None as name, got %r" % name)
 
-        super().__init__(name)
+        super(Placeholder, self).__init__(name)
 
     @property
     def name(self):
@@ -438,14 +441,12 @@ class Placeholder(Composable):
         return self._wrapped
 
     def __repr__(self):
-        if self._wrapped is None:
-            return f"{self.__class__.__name__}()"
-        else:
-            return f"{self.__class__.__name__}({self._wrapped!r})"
+        return "Placeholder(%r)" % (
+            self._wrapped if self._wrapped is not None else '',)
 
     def as_string(self, context):
         if self._wrapped is not None:
-            return f"%({self._wrapped})s"
+            return "%%(%s)s" % self._wrapped
         else:
             return "%s"
 

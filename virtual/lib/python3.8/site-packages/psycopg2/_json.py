@@ -8,7 +8,7 @@ extensions importing register_json from extras.
 # psycopg/_json.py - Implementation of the JSON adaptation objects
 #
 # Copyright (C) 2012-2019 Daniele Varrazzo  <daniele.varrazzo@gmail.com>
-# Copyright (C) 2020-2021 The Psycopg Team
+# Copyright (C) 2020 The Psycopg Team
 #
 # psycopg2 is free software: you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -32,6 +32,7 @@ import json
 
 from psycopg2._psycopg import ISQLQuote, QuotedString
 from psycopg2._psycopg import new_type, new_array_type, register_type
+from psycopg2.compat import PY2
 
 
 # oids from PostgreSQL 9.2
@@ -43,7 +44,7 @@ JSONB_OID = 3802
 JSONBARRAY_OID = 3807
 
 
-class Json:
+class Json(object):
     """
     An `~psycopg2.extensions.ISQLQuote` wrapper to adapt a Python object to
     :sql:`json` data type.
@@ -81,9 +82,13 @@ class Json:
             qs.prepare(self._conn)
         return qs.getquoted()
 
-    def __str__(self):
-        # getquoted is binary
-        return self.getquoted().decode('ascii', 'replace')
+    if PY2:
+        def __str__(self):
+            return self.getquoted()
+    else:
+        def __str__(self):
+            # getquoted is binary in Py3
+            return self.getquoted().decode('ascii', 'replace')
 
 
 def register_json(conn_or_curs=None, globally=False, loads=None,
@@ -163,7 +168,7 @@ def _create_json_typecasters(oid, array_oid, loads=None, name='JSON'):
 
     JSON = new_type((oid, ), name, typecast_json)
     if array_oid is not None:
-        JSONARRAY = new_array_type((array_oid, ), f"{name}ARRAY", JSON)
+        JSONARRAY = new_array_type((array_oid, ), "%sARRAY" % name, JSON)
     else:
         JSONARRAY = None
 
@@ -194,6 +199,6 @@ def _get_json_oids(conn_or_curs, name='json'):
         conn.rollback()
 
     if not r:
-        raise conn.ProgrammingError(f"{name} data type not found")
+        raise conn.ProgrammingError("%s data type not found" % name)
 
     return r
