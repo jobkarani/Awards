@@ -1,0 +1,78 @@
+{% extends "all-temps/base.html" %}
+{% block content %}
+<br><br><br><br>
+<style>
+
+</style>
+<section class="profile container">
+    <div class=" mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+
+                    {% if profile.profile_photo %}
+                    <img src="{{profile.profile_photo.url}}" alt="" class="card-img-top">
+                    {%else%}
+                    <img src="https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg"
+                        class="card-img-top" alt="My profile picture">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h4 class="card-text">
+                            {{ user.first_name }} {{ user.last_name }}
+                        </h4>
+                        <p>{{ user.username }}</p>
+                        <p>
+
+                            {% if profile.contact %}
+                            <small>{{ profile.contact }}</small>
+                            {% else %}
+                            <span class="badge rounded-pill bg-info text-white">No contact</span>
+                            {% endif %}
+                        </p>
+                        <p>
+                            {% if profile.bio %}
+                            <small>{{ profile.bio }}</small>
+                            {% else %}
+                            <span class="text-danger">No about me</span>
+                            {% endif %}
+                        </p>
+                        <h6>Joined on: <span class="badge rounded-pill bg-secondary text-white">
+                                {{ user.post_date|date }} </span></h6>
+
+                    </div>
+
+
+                </div>
+                <div class="details">
+                    <div class="first">
+                        <!-- <h3>{{user.username}}</h3> -->
+                        {% if request.user is user %}
+                        <div>
+                            <a href="{%url 'update_profile' user.id %}" class="phots"><i
+                                    class="fa fa-plus text-white"></i>
+                                Edit Profile
+                            </a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-md-6">
+                <form action="/project/" class="proj">
+                    <button class="phots"><i class="fa fa-plus text-white"></i> Post Project</button>
+                </form>
+            </div>
+
+
+
+        </div>
+    </div>
+    </div>
+
+</section>
+
+{% endblock %}

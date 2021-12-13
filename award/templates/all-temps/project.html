@@ -1,0 +1,20 @@
+{% extends "all-temps/base.html" %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="container">
+    <div class="col-md-6">
+        <div id="regis">
+            <div class="form-data">
+                <form action="{%url 'upload'%}" method="post" enctype="multipart/form-data">
+                    {% load crispy_forms_tags %}
+
+                    <h2 class="intro">Upload a picture</h2>
+                    {{ form | crispy }}
+                    {% csrf_token %}
+                    <button class="btn btn-warning" type="submit">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'all-temps/base.html'%} {% load static %} {% load bootstrap5 %}
+<br><br><br>
+{% block content %}
+<div class="box">
+    <div class="text-center">
+        <div class="title">Create a profile to start using Awwards</div>
+        <hr />
+        <div class="guide">
+            Please provide an image for your profile picture, a short description of
+            yourself and/or what you do (bio), your location, email address and a link
+            to your portfolio.
+        </div>
+    </div>
+    <form action="{%url 'create_profile'%}" method="post" enctype="multipart/form-data">
+        {%csrf_token%} {% bootstrap_form form%}
+        <input type="submit" class="btn btn-dark" value="Create Profile" />
+    </form>
+</div>
+{% endblock %}

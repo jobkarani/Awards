@@ -1,44 +1,49 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navi" style=" border-bottom : inset #161516;">
-  
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-      <div class="navbar-nav text-white">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Awards</span></a>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="col-sm-6 col-md-6">
-        {% if user.is_authenticated %}
-        <ul>
-          <li class="dropdown" style="list-style: none;">
-            <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
-                      <span class="caret"></span>
-                  </a>
-            <ul class="dropdown-menu" role="menu">
-              <li>
-                <a href="{%url 'index'%}">Home</a>
-              </li>
-              <li>
-                <a href="/accounts/password/change">Change Password</a>
-              </li>
-              <li>
-                <a href="/logout">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        {% else %}
-        <li>
-          <a class='btn btn-default' href="/accounts/login">Login</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+    <div class="navbar-nav text-white">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Admin</span></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Awards</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-        {% endif %}
-      </div>
+  <div class="col-sm-6 col-md-6">
+    {% if user.is_authenticated %}
+    <ul>
+      <li class="dropdown" style="list-style: none;">
+        <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button"
+          aria-expanded="false">Account
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li>
+            <a href="{%url 'index'%}">Home</a>
+          </li>
+          <li>
+            <a href="/accounts/password/change">Change Password</a>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    {% else %}
+    <li>
+      <a class='btn btn-default' href="/accounts/login">Login</a>
+    </li>
 
-  </nav>
+    {% endif %}
+  </div>
+
+</nav>

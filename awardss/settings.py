@@ -10,7 +10,18 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from decouple import config, Csv
+import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import django_heroku
+
+MODE = config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^&z*!^40o#nw$r^(ji_r*7g$fid-lasta7ikhjv!x0*xpfca!@'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,8 +49,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'award.apps.AwardConfig',
-    'bootstrap5'
+    'bootstrap5',
+    'crispy_forms',
+    'rest_frameworks'
 ]
+
+cloudinary.config(
+    cloud_name="dwrxuibpi",
+    api_key="226928141486514",
+    api_secret="bakCtUGpYbgoF9HFd3rmpUd6EHI"
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dwrxuibpi',
+    'API_KEY': '226928141486514',
+    'API_SECRET': 'bakCtUGpYbgoF9HFd3rmpUd6EHI'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,3 +150,11 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

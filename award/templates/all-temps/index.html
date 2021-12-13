@@ -1,5 +1,45 @@
-{%extends 'all-temps/base.html'%} {% block content %} {{block.super}}
-<br /><br /><br />
-<h1>Welcome to awards</h1>
+{%extends 'all-temps/base.html'%}
 
+{% block content %}
+<br><br><br><br>
+{{block.super}}
+
+<h1>Welcome to Awards</h1>
+
+
+<section class="blog-section" id="posts main">
+    <div class="container mt-5" style="gap: 15px;">
+
+        <div class="row mt-4" id="">
+            {% for pics in images %}
+            <div class="col-md-12 col-md-6 col-lg-4" id="main" style="gap: 15px;">
+                <div class="card mb-4" id="">
+                    <a href="#">
+                        <img src="{{ pics.image.url }}" class="card-img-top responsive" alt="Personal">
+                    </a>
+                    <div class="card-body ">
+                        <p class="fade-item mb-2">{{ pics.name }}</p>
+                        <div class="d-flex justify-content-between location-date">
+                            <div>
+                                <p class="text-capitalise">{{ pics.location }}</p>
+                            </div>
+                            <div>
+                                <p>{{ pics.created_on|date}}</p>
+                                <p>{{ pics.user.bio}}</p>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="profiles">
+
+
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
