@@ -7,9 +7,12 @@ from django.contrib.auth import login, authenticate
 from .serializer import *
 from rest_framework.views import APIView
 from .permissions import IsAdminOrReadOnly
-
+from award import serializer
+from rest_framework.response import Response
 
 # Create your views here.
+
+
 @login_required(login_url="/accounts/login/")
 def home(request):
     images = Project.objects.all().order_by('-id')
@@ -116,8 +119,19 @@ def project(request, project_id):
     return render(request, "all-temps/project.html", {"project": project, "rating": rating})
 
 
-# class ProjectList(APIView):
-#     permission_classes = (IsAdminOrReadOnly,)
+class ProjectList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
 
-#     def get(self, request, format=Name):
-#         projects = Project.objects.all()
+    def get(self, request, format=None):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+
+class ProfileList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def get(self, request, format=None):
+        profiles = Profile.objects.all()
+        serializer = ProfileSerializer(profiles, many=True)
+        return Response(serializer.data)
