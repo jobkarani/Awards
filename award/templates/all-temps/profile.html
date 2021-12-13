@@ -20,24 +20,25 @@
                         <h4 class="card-text">
                             {{ user.first_name }} {{ user.last_name }}
                         </h4>
-                        <p>{{ user.username }}</p>
+                        <p><span style="font: weight 900px; font-size:larger;">Username: </span> {{ user.username }}</p>
                         <p>
 
                             {% if profile.contact %}
-                            <small>{{ profile.contact }}</small>
-                            {% else %}
-                            <span class="badge rounded-pill bg-info text-white">No contact</span>
-                            {% endif %}
+                        <p> <span style="font: weight 900px; font-size:larger;"> Phone Number:
+                            </span>{{profile.contact}}</p>
+                        {% else %}
+                        <span class="badge rounded-pill bg-info text-white">No contact</span>
+                        {% endif %}
                         </p>
                         <p>
                             {% if profile.bio %}
-                            <small>{{ profile.bio }}</small>
-                            {% else %}
-                            <span class="text-danger">No about me</span>
-                            {% endif %}
+                        <p><span style="font: weight 900px; font-size:larger;"> Bio: </span>{{ profile.bio }}</p>
+                        {% else %}
+                        <span class="text-danger">No about me</span>
+                        {% endif %}
                         </p>
                         <h6>Joined on: <span class="badge rounded-pill bg-secondary text-white">
-                                {{ user.post_date|date }} </span></h6>
+                                {{ user.created_on|date }} </span></h6>
 
                     </div>
 

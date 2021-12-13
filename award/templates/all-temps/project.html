@@ -1,20 +1,103 @@
 {% extends "all-temps/base.html" %}
-{% load bootstrap5 %}
 {% block content %}
-<div class="container">
-    <div class="col-md-6">
-        <div id="regis">
-            <div class="form-data">
-                <form action="{%url 'upload'%}" method="post" enctype="multipart/form-data">
-                    {% load crispy_forms_tags %}
+<br><br><br><br>
+{% if project.image %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <p> {% if profile.profile_photo %}
+                <img src="{{ profile.profile_photo }}" alt="author" class="aimg mt-3">
+                {% else %}
+                <img src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png"
+                    alt="{{ user.username }}" class="aimg">
+                {% endif %}
+            <p><b>{{ user.username }}</b></p>
 
-                    <h2 class="intro">Upload a picture</h2>
-                    {{ form | crispy }}
-                    {% csrf_token %}
-                    <button class="btn btn-warning" type="submit">Upload</button>
-                </form>
+            </p>
+
+        </div>
+        <div class="col-md-8">
+            <p>{{ project.description|safe }}</p>
+            <p>{{ project.cat|safe }}</p>
+            <p>{{ project.location|safe }}</p>
+            <p>{{ project.created_on|date }}</p>
+        </div>
+
+    </div>
+    <div class="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="single-content">
+                    <h2 class="display-6 mt-4 headings">
+                        {{ project.title }}
+                    </h2>
+
+                </div>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
+    <section class="single-top-header"
+        style="height: 70vh; background-repeat: no-repeat;background-size: cover;background-position: center; background-image: url({{project.image.url}})">
+
+        {% else %}
+        <section class="single-top-header">
+            {% endif %}
+
+        </section>
+
+    </section>
+
+    <div class="row rating">
+        <div class="col-md-6">
+            <form action="{% url 'rate' project.id %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="Design">Design</label>
+                    <input type="number" class="form-control" name="design" min="0" max="10" value="0">
+                </div>
+                <div class="mb-3">
+                    <label for="Content">Content</label>
+                    <input type="number" class="form-control" name="content" min="0" max="10" value="0">
+                </div>
+                <div class="mb-3">
+                    <label for="Usability">Usability</label>
+                    <input type="number" class="form-control" name="usability" min="0" max="10" value="0">
+                </div>
+                <button class="btn btn-warning btn-sm" type="submit">Rate</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2 class="text-center">
+                <b>Project Ratings</b>
+            </h2>
+
+            <p>
+                {% for rate in rating %}
+
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <p>Voter: {{rate.user.username}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Design: {{rate.design_value}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Content: {{rate.content_value}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Usability:{{rate.usability_value}}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="alert alert-danger" role="alert">No ratings yet!</p>
+            {% endfor %}
+
+            </p>
+        </div>
+    </div>
+
 </div>
+
+
 {% endblock %}
