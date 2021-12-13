@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'award.apps.AwardConfig',
     'bootstrap5',
     'crispy_forms',
-    'rest_frameworks'
+    'rest_framework'
 ]
 
 cloudinary.config(

@@ -6,7 +6,7 @@ from .forms import *
 from django.contrib.auth import login, authenticate
 from .serializer import *
 from rest_framework.views import APIView
-from permissions import IsAdminOrReadOnly
+from .permissions import IsAdminOrReadOnly
 
 
 # Create your views here.
@@ -15,6 +15,19 @@ def home(request):
     images = Project.objects.all().order_by('-id')
 
     return render(request, 'all-temps/index.html', {'images': images})
+
+
+@login_required(login_url='/accounts/login/')
+def search_project(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search').lower()
+        images = Project.search_project_name(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html', {'found': message, 'images': images})
+    else:
+        message = 'Not found'
+        return render(request, 'all-temps/search.html', {'danger': message})
 
 
 @login_required(login_url="/accounts/login/")
@@ -73,8 +86,8 @@ def upload(request):
     return render(request, 'all-temps/project.html', {'form': form})
 
 
-class ProjectList(APIView):
-    permission_classes = (IsAdminOrReadOnly,)
+# class ProjectList(APIView):
+#     permission_classes = (IsAdminOrReadOnly,)
 
-    def get(self, request, format=Name):
-        projects = Project.objects.all()
+#     def get(self, request, format=Name):
+#         projects = Project.objects.all()

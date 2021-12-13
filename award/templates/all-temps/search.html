@@ -1,0 +1,31 @@
+{% extends 'all-temps/base.html' %}
+{% load static %}
+{% block content %}
+
+<br><br><br><br>
+
+<div class="container">
+
+    <div class="row text-center">
+        <h1>{{ danger }}</h1>
+        <h1>These are the results of your search "{{ found }}"</h1>
+    </div>
+
+
+    <div class="row">
+        {% for image in images %}
+        <div class="card" style="width: 25rem;height: fit-content;margin: 10px;padding: 5px;">
+            <img src="{{ image.image.url }}" class="card-img-top" alt="..." style="object-fit: cover;height: 260px;">
+            <div class="card-body">
+                <h5 class="card-title">{{ image.title }}</h5>
+                <p class="card-text">
+                    {{image.description }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

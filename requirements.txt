@@ -13,6 +13,7 @@ django-cloudinary-storage==0.3.0
 django-crispy-forms==1.13.0
 django-heroku==0.3.1
 django-registration==3.1.2
+djangorestframework==3.12.4
 django-tinymce==3.4.0
 gunicorn==20.1.0
 idna==3.3
