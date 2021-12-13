@@ -64,3 +64,15 @@ class Project(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    design_value = models.IntegerField(default=0, blank=True, null=True)
+    usability_value = models.IntegerField(default=0, blank=True, null=True)
+    content_value = models.IntegerField(default=0, blank=True, null=True)
+    average_value = models.IntegerField(default=0, blank=True, null=True)
+
+    def _str_(self):
+        return self.user.username
