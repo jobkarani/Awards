@@ -86,6 +86,36 @@ def upload(request):
     return render(request, 'all-temps/project.html', {'form': form})
 
 
+@login_required(login_url='/accounts/login/')
+def rate(request, id):
+    if request.method == 'POST':
+        project = Project.objects.get(id=id)
+        current_user = request.user
+        design_value = request.POST['design']
+        content_value = request.POST['content']
+        usability_value = request.POST['usability']
+
+        Rating.objects.create(
+            project=project,
+            user=current_user,
+            design_value=design_value,
+            usability_value=usability_value,
+            content_value=content_value,
+            average_value=round((float(design_value)+float(usability_value)+float(content_value))/3, 2),)
+
+        return render(request, "all-temps/project.html", {"project": project})
+    else:
+        project = Project.objects.get(id=id)
+        return render(request, "all-temps/project.html", {"project": project})
+
+
+@login_required(login_url='/accounts/login/')
+def project(request, project_id):
+    project = Project.objects.get(id=project_id)
+    rating = Rating.objects.filter(project=project)
+    return render(request, "all-temps/project.html", {"project": project, "rating": rating})
+
+
 # class ProjectList(APIView):
 #     permission_classes = (IsAdminOrReadOnly,)
 
