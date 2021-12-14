@@ -8,8 +8,7 @@
     <div class=" mt-5">
         <div class="row">
             <div class="col-md-4">
-                <div class="card">
-
+                <div class="card" style="background-color: #4E9F3D;filter: drop-shadow(2px 4px 8px #585858);">
                     {% if profile.profile_photo %}
                     <img src="{{profile.profile_photo.url}}" alt="" class="card-img-top">
                     {%else%}
@@ -39,17 +38,15 @@
                         </p>
                         <h6>Joined on: <span class="badge rounded-pill bg-secondary text-white">
                                 {{ user.created_on|date }} </span></h6>
-
                     </div>
-
-
                 </div>
+                <br>
                 <div class="details">
                     <div class="first">
                         <!-- <h3>{{user.username}}</h3> -->
                         {% if request.user is user %}
                         <div>
-                            <a href="{%url 'update_profile' user.id %}" class="phots"><i
+                            <a href="{%url 'update_profile' user.id %}" style="color: #D8E9A8;"><i
                                     class="fa fa-plus text-white"></i>
                                 Edit Profile
                             </a>
@@ -58,22 +55,16 @@
 
                     </div>
                 </div>
-
-
-
             </div>
+
             <div class="col-md-6">
                 <form action="/project/" class="proj">
-                    <button class="phots"><i class="fa fa-plus text-white"></i> Post Project</button>
+                    <button style="background-color: #753188;"><i class="fa fa-plus text-white"></i> Post
+                        Project</button>
                 </form>
             </div>
-
-
-
         </div>
     </div>
     </div>
-
 </section>
-
 {% endblock %}
