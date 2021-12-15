@@ -11,7 +11,7 @@ urlpatterns = [
     path('accounts/profile/', views.home, name='profile'),
     path('project/<int:project_id>', views.project, name='project'),
     path('search/', views.search_project, name='search_project'),
-    path('rate/<int:id>/', views.rate, name='rate'),
+    path('rate/<int:id>', views.rate, name='rate'),
     path('api/projects/', views.ProjectList.as_view()),
     path('api/profiles/', views.ProfileList.as_view()),
 ]
