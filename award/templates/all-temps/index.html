@@ -11,6 +11,19 @@
         opacity: .9;
         padding: 2%;
         border-radius: 15%;
+        filter: drop-shadow(2px 4px 8px #585858);
+    }
+
+    .img:hover {
+        filter: drop-shadow(2px 4px 8px #fff);
+    }
+
+    .card {
+        filter: drop-shadow(2px 4px 8px #585858);
+    }
+
+    .card:hover {
+        filter: drop-shadow(2px 4px 8px #fff);
     }
 
     .nav {
@@ -60,12 +73,10 @@
 
 <section class="blog-section">
     <div class="container mt-5" style="gap: 15px;">
-
         <div class="row mt-4">
             {% for posts in images %}
             <div class="col-md-12 col-md-6 col-lg-4" style="gap: 15px;">
-                <div class="card mb-4" id="blogs"
-                    style="background-color: #4E9F3D;filter: drop-shadow(2px 4px 8px #585858); ">
+                <div class="card mb-4" style="background-color: #4E9F3D; ">
                     <a href="{% url 'project' posts.id %}">
                         <img src="{{ posts.image.url }}" class="card-img-top responsive" alt="Personal">
                     </a>
