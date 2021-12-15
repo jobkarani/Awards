@@ -10,7 +10,7 @@ Awards is an application whereby one is able to create an account, post a projec
 
 ## Live Link
 
-This is the live link to the project <a>view
+This is the live link to the project <a href="https://jkawwards.herokuapp.com/">view
 </a>
 
 ## Development
