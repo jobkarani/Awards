@@ -1,5 +1,5 @@
 {%extends "registration/base.html"%} {% load bootstrap5 %} {% block content %}
-<div class="container">
+<div class="container" style="margin-left: 5%;margin-top: 5%;">
   <div class="row">
     <!-- Empty div -->
     <div class="col-md-4"></div>
@@ -9,21 +9,19 @@
       {% endif %}
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="text-center">Sign Up</h3>
+          <h3 class="text-center">Register with your Email</h3>
         </div>
-        <div class="panel-body">
-          <form action="/accounts/register/" method="post">
-            {% csrf_token %} {% bootstrap_form form %}
-            <div class="form-group">
-              <input
-                type="submit"
-                class="btn btn-primary btn-sm"
-                value="Sign Up"
-              />
-            </div>
+        <div class="card" style="padding: 5%;">
+          <div class="panel-body">
+            <form action="/accounts/register/" method="post">
+              {% csrf_token %} {% bootstrap_form form %}
+              <div class="form-group">
+                <input type="submit" class="btn btn-success btn-sm" value="Register" />
+              </div>
 
-            <input type="hidden" name="next" value="{{next}}" />
-          </form>
+              <input type="hidden" name="next" value="{{next}}" />
+            </form>
+          </div>
         </div>
       </div>
     </div>
