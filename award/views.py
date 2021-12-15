@@ -13,7 +13,6 @@ from rest_framework.response import Response
 # Create your views here.
 
 
-@login_required(login_url="/accounts/login/")
 def home(request):
     images = Project.objects.all().order_by('-id')
 
@@ -86,7 +85,7 @@ def upload(request):
         return redirect('/')
     else:
         form = ProjectForm()
-    return render(request, 'all-temps/project.html', {'form': form})
+    return render(request, 'all-temps/upload.html', {'form': form})
 
 
 @login_required(login_url='/accounts/login/')

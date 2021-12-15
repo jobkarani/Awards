@@ -3,12 +3,58 @@
 {% block content %}
 <br><br><br><br>
 {{block.super}}
+<style>
+    .img {
+        margin-top: 20%;
+        margin-left: 60%;
+        background-color: #4E9F3D;
+        opacity: .9;
+        padding: 2%;
+        border-radius: 15%;
+    }
 
+    .nav {
+        margin-top: 1%;
+    }
+
+    .sin {
+        font-size: x-large;
+    }
+
+    .cos {
+        padding-left: 80%;
+    }
+
+    .intro {
+        color: #E59934;
+    }
+</style>
+<div class="nav">
+    <div class="sin">
+        <p>Profile <a href="/profile/" style="color: #e4e00b; list-style: none;">{{ user.username|upper }}</a></p>
+    </div>
+    <div class="cos">
+        <p class="sin"><a href="/admin/" style="color: #e4e00b;">Admin</a></p>
+    </div>
+</div>
 
 <div class="jumbotron">
+    <div class="img">
+        <form action="upload/project/">
+            {% load crispy_forms_tags %}
+
+            <h2 class="intro">Upload a project</h2>
+            <br>
+            {{ form | crispy }}
+            {% csrf_token %}
+            <button class="btn btn-outline-warning" type="submit">Upload</button>
+        </form>
+    </div>
     <img src="https://cdn.pixabay.com/photo/2017/08/12/09/17/industry-2633878__340.jpg" alt="" style="background-repeat: no-repeat;
     background-size: cover; 
     width:100%;">
+
+
 </div>
 
 
