@@ -37,7 +37,9 @@
                         <div>
                             <p>Created on: {{ posts.created_on|date}}</p>
                         </div>
-
+                        <div>
+                            <a href="{% url 'project' posts.url %}">View Project</a>
+                        </div>
                     </div>
                 </div>
             </div>
