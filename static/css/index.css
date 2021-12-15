@@ -1,0 +1,10 @@
+.sign {
+  padding-right: 20%;
+}
+
+#blogs.hover {
+  filter: grayscale(0%);
+}
+#login {
+  margin-left: 20%;
+}

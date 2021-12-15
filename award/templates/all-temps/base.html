@@ -1,4 +1,5 @@
-{% load bootstrap5 %} {% load static%}
+{% load bootstrap5 %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 
@@ -11,8 +12,10 @@
   <title>Awards</title>
   <link rel="icon" type="image/x-icon"
     href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPvtI6Zsqn14ile731k1Ds_SzBnIodDX6FZg&usqp=CAU" />
-  {% endif %} {% block styles %} {% bootstrap_css %}
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  {% endif %}
+  {% block styles %}
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
     integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -21,11 +24,12 @@
 </head>
 
 <body style="background-color: #4E9F3D ;">
-  {% include "navbar.html" %} {% block content %} {%endblock%}
+  {% include "navbar.html" %}
+  {% block content %}
+  {%endblock%}
   {% block scripts %}
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src=" {% static 'js/main.js' %}"></script>
   {% bootstrap_javascript %} {% endblock %}
 </body>
 
