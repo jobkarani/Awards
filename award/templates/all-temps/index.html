@@ -17,36 +17,32 @@
     <div class="container mt-5" style="gap: 15px;">
 
         <div class="row mt-4">
-            {% for pics in images %}
+            {% for posts in images %}
             <div class="col-md-12 col-md-6 col-lg-4" style="gap: 15px;">
                 <div class="card mb-4" id="blogs"
                     style="background-color: #4E9F3D;filter: drop-shadow(2px 4px 8px #585858); ">
-                    <a href="{% url 'project' pics.id %}">
-                        <img src="{{ pics.image.url }}" class="card-img-top responsive" alt="Personal">
+                    <a href="{% url 'project' posts.id %}">
+                        <img src="{{ posts.image.url }}" class="card-img-top responsive" alt="Personal">
                     </a>
                     <div class="card-body ">
-                        <p class="fade-item mb-2">Name: {{ pics.name }}</p>
-
-                        <div class="d-flex justify-content-between location-date">
-                            <div>
-                                <p class="text-capitalise">Located at: {{ pics.location }}</p>
-                            </div>
-                            <div>
-                                <p>Created on: {{ pics.created_on|date}}</p>
-                                <p>Bio: {{ pics.user.bio}}</p>
-                            </div>
-
+                        <div>
+                            <p class="fade-item mb-2">User: {{ posts.user.username }}</p>
                         </div>
-
+                        <div>
+                            <p class="fade-item mb-2">Title: {{ posts.name }}</p>
+                        </div>
+                        <div>
+                            <p class="text-capitalise">Located at: {{ posts.location }}</p>
+                        </div>
+                        <div>
+                            <p>Created on: {{ posts.created_on|date}}</p>
+                        </div>
 
                     </div>
                 </div>
             </div>
             {% endfor %}
-            <div class="profiles">
 
-
-            </div>
         </div>
     </div>
 </section>
