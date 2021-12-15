@@ -26,19 +26,24 @@
                     </a>
                     <div class="card-body ">
                         <div>
-                            <p class="fade-item mb-2">User: {{ posts.user.username }}</p>
+                            <p class="fade-item mb-2">User: {{ posts.user.username|upper }}</p>
                         </div>
                         <div>
                             <p class="fade-item mb-2">Title: {{ posts.name }}</p>
                         </div>
                         <div>
-                            <p class="text-capitalise">Located at: {{ posts.location }}</p>
+                            <p class="text-capitalise">Located at: {{ posts.location|upper}}</p>
                         </div>
                         <div>
                             <p>Created on: {{ posts.created_on|date}}</p>
                         </div>
-                        <div>
-                            <a href="{% url 'project' posts.url %}">View Project</a>
+                        <div class="btn" style="display:flex;">
+                            <div>
+                                <a href="{{ posts.url }}" class="btn btn-outline-light">View Project</a>
+                            </div>
+                            <div style="margin-left: 15%;">
+                                <a href="{% url 'project' posts.id %}" class="btn btn-outline-light">Rate Project</a>
+                            </div>
                         </div>
                     </div>
                 </div>
