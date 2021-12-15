@@ -8,3 +8,8 @@
 #login {
   margin-left: 20%;
 }
+.img {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+}
