@@ -81,7 +81,9 @@
                         <img src="{{ posts.image.url }}" class="card-img-top responsive" alt="Personal">
                     </a>
                     <div class="card-body ">
-
+                        <div>
+                            <p class="fade-item mb-2">Posted By: {{ posts.user.username }}</p>
+                        </div>
                         <div>
                             <p class="fade-item mb-2">Title: {{ posts.name }}</p>
                         </div>

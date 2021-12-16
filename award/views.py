@@ -81,6 +81,7 @@ def upload(request):
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
+            project.user = request.user
             project.save()
         return redirect('/')
     else:
@@ -105,7 +106,9 @@ def rate(request, id):
             content_value=content_value,
             average_value=round((float(design_value)+float(usability_value)+float(content_value))/3, 2),)
 
-        return render(request, "all-temps/project.html", {"project": project})
+        # return render(request, "all-temps/project.html", {"project": project})
+        print(project.id)
+        return redirect('project', project_id=project.id)
     else:
         project = Project.objects.get(id=id)
         return render(request, "all-temps/project.html", {"project": project})

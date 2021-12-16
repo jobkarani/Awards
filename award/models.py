@@ -8,7 +8,8 @@ from tinymce.models import HTMLField
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    user = models.OneToOneField(
+        User, related_name="prof", on_delete=models.PROTECT)
     profile_photo = CloudinaryField('image')
     bio = models.TextField(max_length=650, blank=True, null=True)
     contact = models.CharField(max_length=20, blank=True, null=True)
