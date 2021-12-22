@@ -2,65 +2,72 @@
 {% block content %}
 <br><br><br><br>
 <style>
+    .container {
+        margin-left: 35%;
+    }
 
+    section {
+        overflow: hidden;
+        width: 100%;
+    }
 </style>
-<section class="profile container">
-    <div class=" mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card" style="background-color: #4E9F3D;filter: drop-shadow(2px 4px 8px #585858);">
-                    {% if profile.profile_photo %}
-                    <img src="{{profile.profile_photo.url}}" alt="" class="card-img-top">
-                    {%else%}
-                    <img src="https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg"
-                        class="card-img-top" alt="My profile picture">
-                    {% endif %}
-                    <div class="card-body text-center">
-                        <h4 class="card-text">
-                            {{ user.first_name }} {{ user.last_name }}
-                        </h4>
-                        <p><span style="font: weight 900px; font-size:larger;">Username: </span> {{ user.username }}</p>
-                        <p>
+<section>
+    <div class=" container">
+        <div class=" mt-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card"
+                        style="background: linear-gradient(to top left, #e89beb, #99f048);filter: drop-shadow(2px 4px 8px #585858);">
+                        {% if profile.profile_photo %}
+                        <img src="{{profile.profile_photo.url}}" alt="" class="card-img-top">
+                        {%else%}
+                        <img src="https://st2.depositphotos.com/1104517/11965/v/600/depositphotos_119659092-stock-illustration-male-avatar-profile-picture-vector.jpg"
+                            class="card-img-top" alt="My profile picture">
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h4 class="card-text">
+                                {{ user.first_name }} {{ user.last_name }}
+                            </h4>
+                            <p><span style="font: weight 900px; font-size:larger;">Username: </span> {{ user.username }}
+                            </p>
+                            <p>
 
-                            {% if profile.contact %}
-                        <p> <span style="font: weight 900px; font-size:larger;"> Phone Number:
-                            </span>{{profile.contact}}</p>
-                        {% else %}
-                        <span class="badge rounded-pill bg-info text-white">No contact</span>
-                        {% endif %}
-                        </p>
-                        <p>
-                            {% if profile.bio %}
-                        <p><span style="font: weight 900px; font-size:larger;"> Bio: </span>{{ profile.bio }}</p>
-                        {% else %}
-                        <span class="text-danger">No about me</span>
-                        {% endif %}
-                        </p>
-                        <h6>Joined on: <span class="badge rounded-pill bg-secondary text-white">
-                                {{ user.created_on|date }} </span></h6>
-                    </div>
-                </div>
-                <br>
-                <div class="deets">
-                    <div>
-                        <!-- <h3>{{user.username}}</h3> -->
-                        {% if request.user is user %}
-                        <div>
-                            <a href="{%url 'update_profile' user.id %}" style="color: #D8E9A8;"><i
-                                    class="fa fa-plus text-white"></i>
-                                Edit Profile
-                            </a>
+                                {% if profile.contact %}
+                            <p> <span style="font: weight 900px; font-size:larger;"> Phone Number:
+                                </span>{{profile.contact}}</p>
+                            {% else %}
+                            <span class="badge rounded-pill bg-info text-white">No contact</span>
+                            {% endif %}
+                            </p>
+                            <p>
+                                {% if profile.bio %}
+                            <p><span style="font: weight 900px; font-size:larger;"> Bio: </span>{{ profile.bio }}</p>
+                            {% else %}
+                            <span class="text-danger">No about me</span>
+                            {% endif %}
+                            </p>
+                            <h6>Joined on: <span class="badge rounded-pill bg-secondary text-white">
+                                    {{ user.created_on|date }} </span></h6>
                         </div>
-                        {% endif %}
+                    </div>
+                    <br>
+                    <div class="deets">
+                        <div>
+                            <!-- <h3>{{user.username}}</h3> -->
+                            {% if request.user is user %}
+                            <div>
+                                <a href="{%url 'update_profile' user.id %}" style="color: #D8E9A8;"><i
+                                        class="fa fa-plus text-white"></i>
+                                    Edit Profile
+                                </a>
+                            </div>
+                            {% endif %}
 
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-    </div>
     </div>
 </section>
 {% endblock %}

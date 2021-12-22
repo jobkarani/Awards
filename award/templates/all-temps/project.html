@@ -1,29 +1,41 @@
 {% extends "all-temps/base.html" %}
 {% block content %}
-<br><br><br><br>
+
+<style>
+    .project {
+
+        margin-left: 20%;
+    }
+
+    .container-fluid {
+        overflow: hidden;
+    }
+</style>
 {% if project.image %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4">
+    <div class="row" style="margin: 5%;">
+        <div class="col-md-4"
+            style="  background: linear-gradient(to top left, #f5a0f1, #99f048);width:40%; height:60%; margin-top:5%; padding-left: 5%; padding-right: 5%; filter: drop-shadow(2px 4px 8px #585858);">
             <p> {% if request.user.prof.profile_photo %}
-                <img src="{{ request.user.prof.profile_photo.url }}" alt="author">
+                <img src=" {{ request.user.prof.profile_photo.url }}" style="width: 100%;" alt="author">
                 {% else %}
                 <img src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png"
-                    alt="{{ user.username }}">
+                    alt="{{ user.username }}" style="width:100%;">
                 {% endif %}
             <h3 style="text-align: center;">User: {{ user.username }}</h3>
             </p>
         </div>
-        <div class="card"
-            style="background-color: #4E9F3D;width:40%; height:30%;margin-top:10%; padding-left:5%;filter: drop-shadow(2px 4px 8px #585858);">
-            <div class="col-md-8">
-                <p>About: {{ project.about|safe }}</p>
-                <p>Category: {{ project.cat|safe }}</p>
-                <p>Location: {{ project.location|safe }}</p>
-                <p>Posted on: {{ project.created_on|date }}</p>
-            </div>
+
+        <div class="col-md-4"
+            style="background: linear-gradient(to top left, #f5a0f1, #99f048);width:40%; height:30%;margin-top:10%; margin-left: 5%; padding:5%;filter: drop-shadow(2px 4px 8px #585858);">
+            <p>About: {{ project.about|safe }}</p>
+            <p>Category: {{ project.cat|safe }}</p>
+            <p>Location: {{ project.location|safe }}</p>
+            <p>Posted on: {{ project.created_on|date }}</p>
         </div>
     </div>
+</div>
+<div class="project">
     <div class="header">
         <div class="container-fluid">
             <div class="row">
@@ -38,7 +50,7 @@
         </div>
     </div>
     <section class="single-top-header"
-        style="height: 70vh;  background-repeat: no-repeat;background-size: cover;background-position: center; background-image: url({{project.image.url}})">
+        style="height: 70vh;width:80%;  background-repeat: no-repeat;background-size: cover; background-image: url({{project.image.url}})">
 
         {% else %}
         <section class="single-top-header">
@@ -47,57 +59,62 @@
         </section>
 
     </section>
-    <div class="row rating">
-        <div class="card"
-            style="background-color: #4E9F3D;width:40%; height:30%;margin-top:5%; padding-left:5%;filter: drop-shadow(2px 4px 8px #585858);">
-            <div class="col-md-6">
-                <form action="{% url 'rate' project.id %}" method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="Design">Design</label>
-                        <input type="number" class="form-control" name="design" min="0" max="10" value="0">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Content">Content</label>
-                        <input type="number" class="form-control" name="content" min="0" max="10" value="0">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Usability">Usability</label>
-                        <input type="number" class="form-control" name="usability" min="0" max="10" value="0">
-                    </div>
-                    <button class="btn btn-warning btn-sm" type="submit">Rate</button>
-                </form>
-            </div>
-        </div>
+</div>
+<div class="row rating" style="margin-left: 10%;">
+
+    <div class="card"
+        style="background: linear-gradient(to top left, #f0a9f7, #99f048);width:40%; height:30%;margin-top:5%; padding-left:5%;filter: drop-shadow(2px 4px 8px #585858);">
+        <h2 class="text-center" style="margin-top:5%; ">
+            <b>Rate Here</b>
+        </h2>
         <div class="col-md-6">
-            <h2 class="text-center" style="margin-top:5%;">
-                <b>Project Ratings</b>
-            </h2>
-            <div class="card"
-                style="background-color: #4E9F3D;  padding-left:5%;filter: drop-shadow(2px 4px 8px #585858);">
-                {% for rate in rating %}
-                <div class="row text-center">
-                    <div class="col-md-3">
-                        <p>Voter: {{rate.user.username}}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <p>Design: {{rate.design_value}}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <p>Content: {{rate.content_value}}</p>
-                    </div>
-                    <div class="col-md-3">
-                        <p>Usability:{{rate.usability_value}}</p>
-                    </div>
+            <form action="{% url 'rate' project.id %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="Design">Design</label>
+                    <input type="number" class="form-control" name="design" min="0" max="10" value="0">
                 </div>
-                {% empty %}
-                <p class="alert alert-danger" role="alert">No ratings yet!</p>
-                {% endfor %}
-            </div>
+                <div class="mb-3">
+                    <label for="Content">Content</label>
+                    <input type="number" class="form-control" name="content" min="0" max="10" value="0">
+                </div>
+                <div class="mb-3">
+                    <label for="Usability">Usability</label>
+                    <input type="number" class="form-control" name="usability" min="0" max="10" value="0">
+                </div>
+                <button class="btn btn-warning btn-sm" type="submit">Rate</button>
+            </form>
         </div>
     </div>
-
+    <div class="col-md-6">
+        <h2 class="text-center" style="margin-top:5%; ">
+            <b>Project Ratings</b>
+        </h2>
+        <div class="card"
+            style="background: linear-gradient(to top left, #e98ef1, #99f048);  padding-left:5%;filter: drop-shadow(2px 4px 8px #585858); margin-bottom:10%">
+            {% for rate in rating %}
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <p>Voter: {{rate.user.username}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Design: {{rate.design_value}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Content: {{rate.content_value}}</p>
+                </div>
+                <div class="col-md-3">
+                    <p>Usability:{{rate.usability_value}}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="alert alert-danger" role="alert">No ratings yet!</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
+
+
 
 
 {% endblock %}

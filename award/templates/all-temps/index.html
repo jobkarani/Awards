@@ -7,7 +7,7 @@
     .img {
         margin-top: 20%;
         margin-left: 60%;
-        background-color: #4E9F3D;
+        background: linear-gradient(to bottom left, #d1a2ec, #99f048);
         opacity: .9;
         padding: 2%;
         border-radius: 15%;
@@ -39,15 +39,15 @@
     }
 
     .intro {
-        color: #E59934;
+        color: black;
     }
 </style>
 <div class="nav">
     <div class="sin">
-        <p>Profile <a href="/profile/" style="color: #e4e00b; list-style: none;">{{ user.username|upper }}</a></p>
+        <p>Profile <a href="/profile/" style="color: #834641; list-style: none;">{{ user.username|upper }}</a></p>
     </div>
     <div class="cos">
-        <p class="sin"><a href="/admin/" style="color: #e4e00b;">Admin</a></p>
+        <p class="sin"><a href="/admin/" style="color: #834641;">Admin</a></p>
     </div>
 </div>
 
@@ -60,7 +60,7 @@
             <br>
             {{ form | crispy }}
             {% csrf_token %}
-            <button class="btn btn-outline-warning" type="submit">Upload</button>
+            <button class="btn btn-outline-dark" type="submit">Upload</button>
         </form>
     </div>
     <img src="https://cdn.pixabay.com/photo/2017/08/12/09/17/industry-2633878__340.jpg" alt="" style="background-repeat: no-repeat;
@@ -76,7 +76,7 @@
         <div class="row mt-4">
             {% for posts in images %}
             <div class="col-md-12 col-md-6 col-lg-4" style="gap: 15px;">
-                <div class="card mb-4" style="background-color: #4E9F3D; ">
+                <div class="card mb-4" style=" background: linear-gradient(to bottom right, #e19ce4, #99f048); ">
                     <a href="{% url 'project' posts.id %}">
                         <img src="{{ posts.image.url }}" class="card-img-top responsive" alt="Personal">
                     </a>
